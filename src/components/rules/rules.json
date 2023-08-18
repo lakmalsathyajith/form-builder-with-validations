@@ -1,0 +1,74 @@
+{
+  "rules": {
+    "string": [
+      {
+        "pattern": "regex"
+      },
+      {
+        "required": "boolean"
+      },
+      {
+        "maxLength": "text"
+      },
+      {
+        "minLength": "text"
+      }
+    ],
+    "number": [
+      {
+        "pattern": "regex"
+      },
+      {
+        "required": "boolean"
+      },
+      {
+        "maxValue": "text"
+      },
+      {
+        "minValue": "text"
+      }
+    ],
+    "date": [
+      {
+        "required": "boolean"
+      },
+      {
+        "maxDate": "date"
+      },
+      {
+        "minDate": "date"
+      }
+    ],
+    "boolean": [
+      {
+        "required": "boolean"
+      }
+    ],
+    "frequentlyUsed": {
+      "string": [
+        {
+          "regex": "^[A-Z].*$",
+          "regexDescription": "The input must begin with a capital letter."
+        },
+        {
+          "regex": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+          "regexDescription": "The input must be valid email address."
+        },
+        {
+          "regex": "^[a-zA-Z0-9]+$ ",
+          "regexDescription": "The entered value must not contain special characters."
+        },
+        {
+          "regex": "^(?:(?:19|20)\\d\\d)-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])$",
+          "regexDescription": "The entered value must be a valid date."
+        }
+      ],
+      "number": [
+        {
+          "regex": "^(?:[5-9]|[1-9]\\d+)$",
+          "regexDescription": "The entered value must be greater than or equal to 5."
+        }
+      ]
+    }
+  }
+}
