@@ -1,12 +1,10 @@
+import { ErrorObject, Validatable, ValidatorBase } from ".";
+import { StringRule } from "../types/validationTypes";
 import { isRequired, isMaxLength, isMinLength, isPatterns } from "./utils";
-import { ErrorMessage, StringRule } from "../types/validationTypes";
 
-type ErrorObject = {
-  error: boolean,
-  helperText: ErrorMessage
-}
+class StringValidator extends ValidatorBase implements Validatable {
 
-/**
+  /**
  * Integrated all possible validations related to String type fields.
  *
  * @param   {string}        validationValue  Current value of the field.
@@ -14,20 +12,17 @@ type ErrorObject = {
  *
  * @return  {ErrorMessage}                   Appropriate error message
  */
-export const validate = (validationValue: string, rules: StringRule): ErrorObject => {
-
-  let errorMessages = [];
-  errorMessages.push(isRequired(validationValue, rules));
-  errorMessages.push(isMaxLength(validationValue, rules));
-  errorMessages.push(isMinLength(validationValue, rules));
-  errorMessages = errorMessages.concat(isPatterns(validationValue, rules));
-
-  const errorObject: ErrorObject = {
-    error: !!errorMessages.filter(err => !!err).pop(),
-    helperText: errorMessages.filter(err => !!err).pop()
-  }
+validate = (validationValue: string, rules: StringRule): ErrorObject => {
+  
+  this.errorMessages.push(isRequired(validationValue, rules));
+  this.errorMessages.push(isMaxLength(validationValue, rules));
+  this.errorMessages.push(isMinLength(validationValue, rules));
+  this.errorMessages = this.errorMessages.concat(isPatterns(validationValue, rules));
 
   const propsObject = {}
 
-  return {...errorObject, ...propsObject};
+  return {...this.getErrorObject(), ...propsObject};
 }
+}
+
+export default StringValidator;

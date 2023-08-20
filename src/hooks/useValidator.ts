@@ -1,7 +1,7 @@
-import { useState, useMemo } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { getValidated } from '../validators';
 import { FieldType } from '../store/form';
-import { ErrorMessage, Rule } from '../types/validationTypes';
+import { Rule } from '../types/validationTypes';
 
 
 type useValidatorReturnType = {
@@ -14,20 +14,37 @@ type useValidatorReturnType = {
  *
  * @return  {useValidatorReturnType}  Return validator functions set of errors and props.
  */
-export const useValidator = (): useValidatorReturnType => {
+export const useValidator = (fields): useValidatorReturnType => {
   const [validatorProps, setValidatorProps] = useState({});
 
-  const validate =  async (type: FieldType, key: string, value: string, rules: Rule) => {
+  const validate = async (type: FieldType, key: string, value: string, rules: Rule) => {
     const validatedData = await getValidated(type, value, rules);
     const updatedProps = { ...validatorProps };
     updatedProps[key] = validatedData;
     setValidatorProps(updatedProps);
   }
 
-  console.log('-------inside the hook-------', validatorProps)
+  useEffect(() => {
+    if(Object.keys(fields).length)
+       validateAll(fields)
+}, [fields])
+
+  const validateAll = async (fields) => {
+    const validatorKeys = Object.keys(fields);
+    const updatedProps = { ...validatorProps };
+    if (validatorKeys.length) {
+        for (let i = 0; i < validatorKeys.length; i++) {
+          const { value, type, rules } = fields[validatorKeys[i]];
+          const validatedData = await getValidated(type, value, rules);
+          updatedProps[validatorKeys[i]] = validatedData;
+
+        }
+    }
+    setValidatorProps(updatedProps);
+  }
 
   return {
     validate,
-    validatorProps
+    validatorProps,
   }
 }

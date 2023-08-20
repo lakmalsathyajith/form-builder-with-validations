@@ -11,7 +11,8 @@ import { useValidator } from "../hooks/useValidator.ts";
 export const FormView = () => {
     const { fields } = useSelector((state: RootState) => state.form);
     const dispatch = useDispatch();
-    const { validate, validatorProps } = useValidator(0);
+    const { validate,  validatorProps } = useValidator(fields);
+    
     const renderFields = () => {
         const renderedFields = [];
         for (const key in fields) {
@@ -22,18 +23,11 @@ export const FormView = () => {
                 dispatch(setValue({ key, value }))
                 validate(type, key, value, rules);
             };
-
-            // Trigger validation on focus
-            const onFocus = (value: string) => {
-                validate(type, key, value, rules)
-            };
             console.log({validatorProps})
             const commonProps = {
                 label,
                 onChange,
                 value,
-                autoFocus: true,
-                onFocus,
                 ...validatorProps[key]
             }
             switch (type) {

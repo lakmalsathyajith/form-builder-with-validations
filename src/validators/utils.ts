@@ -8,7 +8,7 @@ import { ErrorMessage, NumberRule, Rule, StringRule } from "../types/validationT
  *
  * @return  {ErrorMessage}   If error occurred in related attribute this returns error
  */
-export const isRequired = (value: string, rules: Rule) => {
+export const isRequired = (value: string, rules: Rule) : ErrorMessage => {
   let message;
   if (rules['required'] && !value.length) {
     message = "This field is required."
@@ -24,7 +24,7 @@ export const isRequired = (value: string, rules: Rule) => {
  *
  * @return  {ErrorMessage}   If error occurred in related attribute this returns error
  */
-export const isMaxLength = (value: string, rules: StringRule) => {
+export const isMaxLength = (value: string, rules: StringRule): ErrorMessage => {
   let message;
   if (rules['maxLength'] && value.length > parseInt(rules['maxLength'])) {
     message = `The value should not be more than ${rules['maxLength']} characters.`
@@ -40,7 +40,7 @@ export const isMaxLength = (value: string, rules: StringRule) => {
  *
  * @return  {ErrorMessage}   If error occurred in related attribute this returns error
  */
-export const isMinLength = (value: string, rules: StringRule) => {
+export const isMinLength = (value: string, rules: StringRule) : ErrorMessage => {
   let message;
   if (rules['minLength'] && value.length < parseInt(rules['minLength'])) {
     message = `The value should be more than ${rules['minLength']} characters.`
@@ -56,7 +56,7 @@ export const isMinLength = (value: string, rules: StringRule) => {
  *
  * @return  {ErrorMessage}   If error occurred in related attribute this returns error
  */
-export const isMaxValue = (value: string, rules: NumberRule) => {
+export const isMaxValue = (value: string, rules: NumberRule) : ErrorMessage => {
   let message;
   if (rules['maxValue'] && parseInt(value) > parseInt(rules['maxValue'])) {
     message = `The value should be less than ${rules['maxValue']}.`
@@ -72,7 +72,7 @@ export const isMaxValue = (value: string, rules: NumberRule) => {
  *
  * @return  {ErrorMessage}   If error occurred in related attribute this returns error
  */
-export const isMinValue = (value: string, rules: NumberRule) => {
+export const isMinValue = (value: string, rules: NumberRule) : ErrorMessage => {
   let message;
   if (rules['minValue'] && parseInt(value) < parseInt(rules['minValue'])) {
     message = `The value should be greater than ${rules['minValue']}.`
