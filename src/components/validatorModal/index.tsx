@@ -13,8 +13,8 @@ import {
 import { DateField } from './../fields/DateField.tsx';
 import DynamicRuleGenerator from './DynamicRuleGenerator.tsx';
 import { rules } from './../rules/rules.json';
-import { FieldType, FormElement } from '../../store/form.ts';
-import { RegexRule, Rule, ValidatorArgs } from '../../types/validationTypes.ts';
+import { FieldType } from '../../store/form.ts';
+import { RegexRule } from '../../types/validationTypes.ts';
 
 type ValidationModalProps = {
   isOpen: boolean;
@@ -86,7 +86,8 @@ const ValidationModal = ({
     boxShadow: '24',
     maxHeight: '90%',
     overflowY: 'auto',
-    p: 4,
+    width: '80%',
+    padding: 4,
   };
 
   const generateElement = (rule: RuleElement) => {
@@ -163,25 +164,23 @@ const ValidationModal = ({
         aria-describedby="modal-description"
       >
         <Box sx={modalStyle}>
-          <Typography id="modal-content" sx={{ mt: 2 }}>
-            <Grid container spacing={2}>
-              {selectedRuleSet &&
-                selectedRuleSet.map((rule: RuleElement) => {
-                  return generateElement(rule);
-                })}
-              <Grid item xs={12}>
-                <Button
-                  fullWidth
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  onClick={onApplyRuleSetting}
-                >
-                  Apply
-                </Button>
-              </Grid>
+          <Grid container spacing={2} id="modal-content" sx={{ mt: 2 }}>
+            {selectedRuleSet &&
+              selectedRuleSet.map((rule: RuleElement) => {
+                return generateElement(rule);
+              })}
+            <Grid item xs={12}>
+              <Button
+                fullWidth
+                type="submit"
+                variant="contained"
+                color="primary"
+                onClick={onApplyRuleSetting}
+              >
+                Apply
+              </Button>
             </Grid>
-          </Typography>
+          </Grid>
         </Box>
       </Modal>
     </div>

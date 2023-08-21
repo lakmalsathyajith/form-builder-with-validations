@@ -179,7 +179,15 @@ const DynamicRuleGenerator = ({
                     onDelete={() => handleDelete(index)}
                     onClick={() => handleEdit(index)}
                     variant="outlined"
-                    sx={{ width: '100%', justifyContent: 'space-between' }}
+                    sx={{
+                      width: '100%',
+                      justifyContent: 'space-between',
+                      height: 'auto',
+                      '& .MuiChip-label': {
+                        display: 'block',
+                        whiteSpace: 'normal',
+                      },
+                    }}
                   />
                 </Grid>
               ))
