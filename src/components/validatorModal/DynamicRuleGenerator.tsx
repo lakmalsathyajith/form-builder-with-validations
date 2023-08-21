@@ -17,6 +17,9 @@ type DynamicRuleGeneratorProps = {
   frequentlyUsedRules: RegexRule[];
 };
 
+/**
+ * Dynamically generates regex rules based on the user inputs.
+ */
 const DynamicRuleGenerator = ({
   onRuleUpdate,
   frequentlyUsedRules,
@@ -32,12 +35,13 @@ const DynamicRuleGenerator = ({
     if (frequentlyUsedRules) {
       updatedFrequentRules = frequentlyUsedRules.filter((rule) => {
         let ruleNotFound = true;
-        dataList.some((addedRule: RegexRule) => {
-          ruleNotFound =
-            addedRule.regex !== rule.regex &&
-            addedRule.regexDescription !== rule.regexDescription;
-          return !ruleNotFound;
-        });
+        dataList &&
+          dataList.some((addedRule: RegexRule) => {
+            ruleNotFound =
+              addedRule.regex !== rule.regex &&
+              addedRule.regexDescription !== rule.regexDescription;
+            return !ruleNotFound;
+          });
         return ruleNotFound;
       });
     }
