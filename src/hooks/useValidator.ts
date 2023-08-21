@@ -44,7 +44,6 @@ export const useValidator = (fields: FormElement): useValidatorReturnType => {
       };
       if (validatorKeys.length) {
         for (let i = 0; i < validatorKeys.length; i++) {
-          console.log(validatorKeys[i]);
           const { value, type, rules }: Field =
             fields[validatorKeys[i] as keyof FormKey];
           const validatedData = await getValidated(type, value, rules);

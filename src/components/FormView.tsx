@@ -22,7 +22,6 @@ export const FormView = () => {
         dispatch(setValue({ key, value }));
         validate(type, key, value, rules);
       };
-      console.log({ validatorProps });
       const commonProps = {
         label,
         onChange,

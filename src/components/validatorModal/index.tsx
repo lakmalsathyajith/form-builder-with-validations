@@ -44,7 +44,6 @@ const ValidationModal = ({
   setFieldRuleSet,
 }: ValidationModalProps) => {
   const [open, setOpen] = useState(false);
-
   const [ruleSet, setRuleSet] = useState<RuleSet>({});
 
   const castedRules = Object.assign(new TypeAssign(), rules);
@@ -54,7 +53,6 @@ const ValidationModal = ({
     rule: string,
     value: string | boolean | RegexRule[]
   ) => {
-    console.log(rule, value);
     const ruleSetUpdated = ruleSet;
 
     ruleSetUpdated[rule] = value;
