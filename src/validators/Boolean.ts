@@ -1,19 +1,26 @@
-import { isRequired, isMaxValue, isMinValue, isPatterns } from "./utils";
-import { ErrorMessage, NumberRule, Rule } from "../types/validationTypes";
+import { isRequired } from './utils';
+import { NumberRule } from '../types/validationTypes';
 
-/**
- * Integrated all possible validations related to Number type fields.
- *
- * @param   {string}        validationValue  Current value of the field.
- * @param   {Rule}    rules            Current rule set attached to the field.
- *
- * @return  {ErrorMessage}                   Appropriate error message
- */
-export const validate = (validationValue: string, rules:Rule): ErrorMessage => {
+import { ErrorObject, Validatable, ValidatorBase } from '.';
 
-  const errorMessages = [];
-  const props = [];
-  errorMessages.push(isRequired(validationValue, rules));
+class BooleanValidator extends ValidatorBase implements Validatable {
+  /**
+   * Integrated all possible validations related to Boolean type fields.
+   *
+   * @param   {string}        validationValue  Current value of the field.
+   * @param   {Rule}    rules            Current rule set attached to the field.
+   *
+   * @return  {ErrorMessage}                   Appropriate error message
+   */
+  validate = (validationValue: string, rules: NumberRule): ErrorObject => {
+    this.errorMessages.push(isRequired(validationValue, rules));
 
-  return errorMessages.filter(err => !!err).pop();
+    const propsObject = {
+      required: !!rules['required'],
+    };
+
+    return { ...this.getErrorObject(), ...propsObject };
+  };
 }
+
+export default BooleanValidator;

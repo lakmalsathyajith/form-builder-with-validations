@@ -20,7 +20,7 @@ In addition to basic field type validation, we need a feature that allows additi
 - The input must begin with a capital letter.
 - The input must match a specific pattern (e.g., an email format).
 - The input must not contain any special characters.
-- The input must be a valid date. 
+- The input must be a valid date.
 
 The interface should allow for the definition of these and other validation rules, without requiring modifications to the codebase for each new rule. The specifics of how you enable this dynamic rule-setting are up to you, but we're looking for an innovative, flexible, and scalable solution.
 

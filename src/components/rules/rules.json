@@ -33,10 +33,10 @@
         "required": "boolean"
       },
       {
-        "maxDate": "date"
+        "minDate": "date"
       },
       {
-        "minDate": "date"
+        "maxDate": "date"
       }
     ],
     "boolean": [

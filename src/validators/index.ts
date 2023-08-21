@@ -1,20 +1,18 @@
-import { FieldType } from "../store/form";
-import { ErrorMessage, Rule } from "../types/validationTypes";
-
+import { FieldType } from '../store/form';
+import { ErrorMessage, Rule } from '../types/validationTypes';
 
 export type ErrorObject = {
-  error: boolean,
-  helperText: ErrorMessage
-}
+  error: boolean;
+  helperText: ErrorMessage;
+};
 export interface Validatable {
-  validate(validationValue: string, rules: Rule): ErrorObject,
-  errorMessages: ErrorMessage[],
-  errorObject: ErrorObject,
-  propsObject: unknown
+  validate(validationValue: string, rules: Rule): ErrorObject;
+  errorMessages: ErrorMessage[];
+  errorObject: ErrorObject;
+  propsObject: unknown;
 }
 
 export class ValidatorBase {
-
   errorMessages: ErrorMessage[] = [];
   errorObject: ErrorObject;
   propsObject: unknown;
@@ -22,16 +20,21 @@ export class ValidatorBase {
   constructor() {
     this.errorObject = {
       error: false,
-      helperText: ""
-    }
+      helperText: '',
+    };
   }
-
 
   getErrorObject(): ErrorObject {
     return {
-      error: !!this.errorMessages.filter(err => !!err).reverse().pop(),
-      helperText: this.errorMessages.filter(err => !!err).reverse().pop()
-    }
+      error: !!this.errorMessages
+        .filter((err) => !!err)
+        .reverse()
+        .pop(),
+      helperText: this.errorMessages
+        .filter((err) => !!err)
+        .reverse()
+        .pop(),
+    };
   }
 }
 
@@ -44,11 +47,18 @@ export class ValidatorBase {
  *
  * @return  {Promise<ErrorMessage>}    A promise of generated error messages
  */
-export const getValidated = async (type: FieldType, value: string, rules: Rule): Promise<ErrorMessage> => {
-  return await import(`./${type}`).then((validator) => {
-    const validatorObj = new validator.default();
-    return validatorObj.validate(value, rules);
-  }).catch((err) => {
-    console.log({ err })
-  });
+export const getValidated = async (
+  type: FieldType,
+  value: string,
+  rules: Rule
+): Promise<ErrorMessage> => {
+  console.log('=========[0]======', new Date().toISOString().split('T')[0]);
+  return await import(`./${type}`)
+    .then((validator) => {
+      const validatorObj = new validator.default();
+      return validatorObj.validate(value, rules);
+    })
+    .catch((err) => {
+      console.log('No validations found.', { err });
+    });
 };
