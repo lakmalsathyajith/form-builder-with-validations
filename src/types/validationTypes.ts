@@ -1,5 +1,7 @@
 export type ErrorMessage = string | undefined;
 
+export type ErrorElement = { [key: string]: ErrorMessage };
+
 export type RegexRule = {
   regex: string;
   regexDescription: string;

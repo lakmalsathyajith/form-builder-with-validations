@@ -5,12 +5,12 @@ class StringValidator extends ValidatorBase implements Validatable {
   /**
    * Integrated all possible validations related to String type fields.
    *
-   * @param   {string}        validationValue  Current value of the field.
+   * @param   {string}        _validationValue  Current value of the field.
    * @param   {StringRule}    rules            Current rule set attached to the field.
    *
    * @return  {ErrorMessage}                   Appropriate error message
    */
-  validate = (validationValue: string, rules: Rule): ErrorObject => {
+  validate = (_validationValue: string, rules: Rule): ErrorObject => {
     const propsObject = {
       inputProps: {
         max: rules['maxDate'],

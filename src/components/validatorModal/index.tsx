@@ -63,7 +63,7 @@ const ValidationModal: React.FC = ({
   const generateElement = (rule) => {
     let element;
     for (const propName in rule) {
-      if (rule.hasOwnProperty(propName)) {
+      if (Object.prototype.hasOwnProperty.call(rule, propName)) {
         switch (rule[propName]) {
           case 'regex':
             element = (
@@ -96,7 +96,7 @@ const ValidationModal: React.FC = ({
                   control={
                     <Checkbox
                       checked={ruleSet[propName]}
-                      onChange={(e) =>
+                      onChange={() =>
                         onChangeRuleSetting(propName, !ruleSet[propName])
                       }
                       color="primary"

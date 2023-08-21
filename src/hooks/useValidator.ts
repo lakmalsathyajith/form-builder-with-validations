@@ -1,7 +1,8 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { getValidated } from '../validators';
 import { FieldType } from '../store/form';
-import { Rule } from '../types/validationTypes';
+import { ErrorMessage, Rule, ErrorElement } from '../types/validationTypes';
+import { FormState, Field, FormKey } from '../store/form';
 
 type useValidatorReturnType = {
   validate: (
@@ -10,15 +11,17 @@ type useValidatorReturnType = {
     value: string,
     rules: Rule
   ) => Promise<void>;
-  errors: unknown;
+  validatorProps: { [key: string]: ErrorMessage };
 };
 
 /**
- * [useValidator description]
+ * Custom Hook to validate the form, when included in form view component,
+ * validation errors are available in top level,
+ * that can decide the form submission
  *
  * @return  {useValidatorReturnType}  Return validator functions set of errors and props.
  */
-export const useValidator = (fields): useValidatorReturnType => {
+export const useValidator = (fields: FormState): useValidatorReturnType => {
   const [validatorProps, setValidatorProps] = useState({});
 
   const validate = async (
@@ -28,27 +31,35 @@ export const useValidator = (fields): useValidatorReturnType => {
     rules: Rule
   ) => {
     const validatedData = await getValidated(type, value, rules);
-    const updatedProps = { ...validatorProps };
-    updatedProps[key] = validatedData;
+    const updatedProps: ErrorElement = { ...validatorProps };
+    updatedProps[key as keyof ErrorMessage] = validatedData;
     setValidatorProps(updatedProps);
   };
+
+  const validateAll = useCallback(
+    async (fields: FormState) => {
+      const validatorKeys = Object.keys(fields);
+      const updatedProps: ErrorElement = {
+        ...validatorProps,
+      };
+      if (validatorKeys.length) {
+        for (let i = 0; i < validatorKeys.length; i++) {
+          console.log(validatorKeys[i]);
+          const { value, type, rules }: Field =
+            fields[validatorKeys[i] as keyof FormKey];
+          const validatedData = await getValidated(type, value, rules);
+          updatedProps[validatorKeys[i]] = validatedData;
+        }
+      }
+      setValidatorProps(updatedProps);
+    },
+    [validatorProps]
+  );
 
   useEffect(() => {
     if (Object.keys(fields).length) validateAll(fields);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fields]);
-
-  const validateAll = async (fields) => {
-    const validatorKeys = Object.keys(fields);
-    const updatedProps = { ...validatorProps };
-    if (validatorKeys.length) {
-      for (let i = 0; i < validatorKeys.length; i++) {
-        const { value, type, rules } = fields[validatorKeys[i]];
-        const validatedData = await getValidated(type, value, rules);
-        updatedProps[validatorKeys[i]] = validatedData;
-      }
-    }
-    setValidatorProps(updatedProps);
-  };
 
   return {
     validate,

@@ -8,7 +8,7 @@ export enum FieldType {
   Boolean = 'boolean',
 }
 
-type Field = {
+export type Field = {
   key: string;
   type: FieldType;
   label: string;
@@ -16,8 +16,12 @@ type Field = {
   rules: Rule;
 };
 
+export type FormKey = string | undefined;
+
+export type FormElement = { [key: string]: Field };
+
 export interface FormState {
-  fields: { [key: string]: Field };
+  fields: FormElement;
 }
 
 const initialState: FormState = {

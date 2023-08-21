@@ -52,7 +52,6 @@ export const getValidated = async (
   value: string,
   rules: Rule
 ): Promise<ErrorMessage> => {
-  console.log('=========[0]======', new Date().toISOString().split('T')[0]);
   return await import(`./${type}`)
     .then((validator) => {
       const validatorObj = new validator.default();
