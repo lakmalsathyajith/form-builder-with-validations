@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Grid from '@mui/material/Grid';
+import {
+  Button,
+  Modal,
+  Box,
+  Typography,
+  TextField,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+} from '@mui/material';
 
 import { DateField } from './../fields/DateField.tsx';
 import DynamicRuleGenerator from './DynamicRuleGenerator.tsx';
@@ -15,13 +17,13 @@ import { FieldType } from '../../store/form.ts';
 import { RegexRule } from '../../types/validationTypes.ts';
 
 type ValidationModalProps = {
-  isOpen: string;
+  isOpen: boolean;
   setIsValidationModalOpen: (flag: boolean) => void;
-  type: FieldType;
-  setFieldRuleSet: () => void;
+  type: FieldType | string | undefined;
+  setFieldRuleSet: React.Dispatch<React.SetStateAction<object>>;
 };
 
-const ValidationModal: React.FC = ({
+const ValidationModal = ({
   isOpen,
   setIsValidationModalOpen,
   type,

@@ -6,9 +6,10 @@ import { InputField } from './fields/InputField.tsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/config.ts';
 import ValidationModal from './validatorModal';
+import { Rule } from '../types/validationTypes.ts';
 
 export const FormBuilder = () => {
-  const [currentType, setCurrentType] = useState('');
+  const [currentType, setCurrentType] = useState<FieldType | string>();
   const [currentKey, setCurrentKey] = useState('');
   const [currentLabel, setCurrentLabel] = useState('');
   const [isValidationModalOpen, setIsValidationModalOpen] = useState(false);
@@ -28,7 +29,7 @@ export const FormBuilder = () => {
           key: currentKey,
           type: currentType as FieldType,
           label: currentLabel,
-          rules: fieldRuleSet,
+          rules: fieldRuleSet as Rule,
         })
       );
       setCurrentType('');
@@ -43,8 +44,7 @@ export const FormBuilder = () => {
   };
 
   const disabled =
-    (fields[currentKey] !== undefined && currentType === '') ||
-    currentKey === '';
+    (fields[currentKey] !== undefined && currentType) || currentKey === '';
 
   return (
     <Fragment>
@@ -88,7 +88,7 @@ export const FormBuilder = () => {
               size="small"
               color="secondary"
               onClick={openValidationModal}
-              disabled={disabled}
+              disabled={!!disabled}
             >
               Add Validations
             </Button>
