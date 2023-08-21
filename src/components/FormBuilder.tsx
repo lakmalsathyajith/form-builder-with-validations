@@ -44,9 +44,7 @@ export const FormBuilder = () => {
 
   const disabled =
     (fields[currentKey] !== undefined && currentType === '') ||
-    currentKey === ''
-      ? 'disabled'
-      : undefined;
+    currentKey === '';
 
   return (
     <Fragment>

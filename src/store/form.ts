@@ -54,7 +54,6 @@ export const formSlice = createSlice({
       state,
       action: PayloadAction<{ key: string; value: string }>
     ) => {
-      console.log('-------------', action.payload);
       const { key, value } = action.payload;
       const field = state.fields[key];
 
