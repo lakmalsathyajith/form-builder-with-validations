@@ -22,12 +22,12 @@ export const FormView = () => {
         dispatch(setValue({ key, value }));
         validate(type, key, value, rules);
       };
-      const commonProps = {
+      let commonProps = {
         label,
         onChange,
         value,
-        ...validatorProps[key],
       };
+      commonProps = Object.assign(commonProps, validatorProps[key]);
       switch (type) {
         case FieldType.Number:
         case FieldType.String:

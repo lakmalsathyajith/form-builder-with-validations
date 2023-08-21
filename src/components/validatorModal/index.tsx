@@ -3,7 +3,6 @@ import {
   Button,
   Modal,
   Box,
-  Typography,
   TextField,
   Checkbox,
   FormControlLabel,
@@ -54,10 +53,9 @@ const ValidationModal = ({
     value: string | boolean | RegexRule[]
   ) => {
     const ruleSetUpdated = ruleSet;
-
     ruleSetUpdated[rule] = value;
-    setRuleSet(ruleSetUpdated);
-    setFieldRuleSet(ruleSetUpdated);
+    setRuleSet({ ...ruleSetUpdated });
+    setFieldRuleSet({ ...ruleSetUpdated });
   };
 
   const onApplyRuleSetting = () => {
@@ -92,6 +90,7 @@ const ValidationModal = ({
 
   const generateElement = (rule: RuleElement) => {
     let element;
+    //console.log('-----', rule);
     for (const propName in rule) {
       if (Object.prototype.hasOwnProperty.call(rule, propName)) {
         switch (rule[propName]) {
@@ -127,7 +126,7 @@ const ValidationModal = ({
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={ruleSet[propName]}
+                      checked={!!ruleSet[propName]}
                       onChange={() =>
                         onChangeRuleSetting(propName, !ruleSet[propName])
                       }
@@ -145,7 +144,7 @@ const ValidationModal = ({
                 <DateField
                   label={propName}
                   onChange={(value) => onChangeRuleSetting(propName, value)}
-                  value={ruleSet[propName]}
+                  value={ruleSet[propName] + ''}
                 />
               </Grid>
             );

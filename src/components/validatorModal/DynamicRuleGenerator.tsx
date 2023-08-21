@@ -49,7 +49,9 @@ const DynamicRuleGenerator = ({
   }, [dataList, frequentlyUsedRules]);
 
   useEffect(() => {
-    onRuleUpdate('patterns', dataList);
+    if (dataList.length > 0) {
+      onRuleUpdate('patterns', dataList);
+    }
     setFrequentRules([...filterFrequentRules()]);
   }, [dataList, onRuleUpdate, filterFrequentRules]);
 
@@ -151,7 +153,7 @@ const DynamicRuleGenerator = ({
               size="small"
               variant="outlined"
               color="primary"
-              onClick={handleAdd}
+              onClick={() => handleAdd()}
             >
               {editIndex === -1 ? 'Create' : 'Update'}
             </Button>
