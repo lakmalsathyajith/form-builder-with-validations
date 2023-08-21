@@ -14,7 +14,7 @@ import { DateField } from './../fields/DateField.tsx';
 import DynamicRuleGenerator from './DynamicRuleGenerator.tsx';
 import { rules } from './../rules/rules.json';
 import { FieldType } from '../../store/form.ts';
-import { RegexRule } from '../../types/validationTypes.ts';
+import { RegexRule, Rule } from '../../types/validationTypes.ts';
 
 type ValidationModalProps = {
   isOpen: boolean;
@@ -27,6 +27,8 @@ type RuleSet = {
   [key: string]: unknown;
 };
 
+class TypeAssign {}
+
 const ValidationModal = ({
   isOpen,
   setIsValidationModalOpen,
@@ -37,8 +39,9 @@ const ValidationModal = ({
 
   const [ruleSet, setRuleSet] = useState<RuleSet>({});
 
-  const rulesParsed = JSON.parse(JSON.stringify(rules));
-  const selectedRuleSet = rulesParsed[type];
+  const castedRules = Object.assign(new TypeAssign(), rules);
+
+  const selectedRuleSet = castedRules[type as keyof TypeAssign];
 
   const onChangeRuleSetting = (
     rule: string,
@@ -81,8 +84,9 @@ const ValidationModal = ({
     p: 4,
   };
 
-  const generateElement = (rule) => {
+  const generateElement = (rule: Rule) => {
     let element;
+    console.log({ rule });
     for (const propName in rule) {
       if (Object.prototype.hasOwnProperty.call(rule, propName)) {
         switch (rule[propName]) {
@@ -91,7 +95,9 @@ const ValidationModal = ({
               <Grid container spacing={2} key={propName}>
                 <DynamicRuleGenerator
                   onRuleUpdate={onChangeRuleSetting}
-                  frequentlyUsedRules={rules['frequentlyUsed'][type]}
+                  frequentlyUsedRules={
+                    castedRules['frequentlyUsed'][type as keyof TypeAssign]
+                  }
                 />
               </Grid>
             );
@@ -156,7 +162,7 @@ const ValidationModal = ({
           <Typography id="modal-content" sx={{ mt: 2 }}>
             <Grid container spacing={2}>
               {selectedRuleSet &&
-                selectedRuleSet.map((rule: string) => {
+                selectedRuleSet.map((rule: Rule) => {
                   return generateElement(rule);
                 })}
               <Grid item xs={12}>
