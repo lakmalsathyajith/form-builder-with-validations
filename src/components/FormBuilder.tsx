@@ -42,6 +42,11 @@ export const FormBuilder = () => {
     setIsValidationModalOpen(true);
   };
 
+  const disabled =
+    fields[currentKey] !== undefined || currentKey === ''
+      ? 'disabled'
+      : undefined;
+
   return (
     <Fragment>
       <Grid container spacing={2} sx={{ width: 300, margin: 'auto' }}>
@@ -84,6 +89,7 @@ export const FormBuilder = () => {
               size="small"
               color="secondary"
               onClick={openValidationModal}
+              disabled={disabled}
             >
               Add Validations
             </Button>
@@ -100,6 +106,7 @@ export const FormBuilder = () => {
         </Grid>
       </Grid>
       <ValidationModal
+        key={currentKey}
         isOpen={isValidationModalOpen}
         setIsValidationModalOpen={setIsValidationModalOpen}
         type={currentType}

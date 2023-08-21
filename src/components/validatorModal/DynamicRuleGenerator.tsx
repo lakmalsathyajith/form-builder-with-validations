@@ -89,9 +89,7 @@ const DynamicRuleGenerator = ({ onRuleUpdate, frequentlyUsedRules }) => {
         <Grid container spacing={1}>
           {frequentRules.length ? (
             <Fragment>
-              <Typography variant="h7" component="h7">
-                Frequently used
-              </Typography>
+              <Typography>Frequently used</Typography>
               {frequentRules.map((data, index) => (
                 <Grid item xs={12} key={index}>
                   <Paper
@@ -117,9 +115,7 @@ const DynamicRuleGenerator = ({ onRuleUpdate, frequentlyUsedRules }) => {
             </Fragment>
           ) : null}
           <Grid item xs={12} sx={{ mt: 1 }}>
-            <Typography variant="h7" component="h7">
-              Create New
-            </Typography>
+            <Typography>Create New</Typography>
             <TextField
               sx={{ mt: 1 }}
               label="Regex"

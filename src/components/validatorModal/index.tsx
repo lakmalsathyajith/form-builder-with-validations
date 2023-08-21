@@ -11,21 +11,30 @@ import Grid from '@mui/material/Grid';
 import { DateField } from './../fields/DateField.tsx';
 import DynamicRuleGenerator from './DynamicRuleGenerator.tsx';
 import { rules } from './../rules/rules.json';
+import { FieldType } from '../../store/form.ts';
+
+type ValidationModalProps = {
+  isOpen: string;
+  setIsValidationModalOpen: (flag: boolean) => void;
+  type: FieldType;
+  setFieldRuleSet: () => void;
+};
 
 const ValidationModal: React.FC = ({
   isOpen,
   setIsValidationModalOpen,
   type,
   setFieldRuleSet,
-}) => {
+}: ValidationModalProps) => {
   const [open, setOpen] = useState(false);
 
   const [ruleSet, setRuleSet] = useState({});
   const selectedRuleSet = rules[type];
 
-  const onChangeRuleSetting = (rule, value) => {
+  const onChangeRuleSetting = (rule: string, value: string | boolean) => {
     console.log(rule, value);
     const ruleSetUpdated = ruleSet;
+
     ruleSetUpdated[rule] = value;
     setRuleSet(ruleSetUpdated);
     setFieldRuleSet(ruleSetUpdated);
@@ -67,7 +76,7 @@ const ValidationModal: React.FC = ({
         switch (rule[propName]) {
           case 'regex':
             element = (
-              <Grid container spacing={2}>
+              <Grid container spacing={2} key={propName}>
                 <DynamicRuleGenerator
                   onRuleUpdate={onChangeRuleSetting}
                   frequentlyUsedRules={rules['frequentlyUsed'][type]}
@@ -77,7 +86,7 @@ const ValidationModal: React.FC = ({
             break;
           case 'text':
             element = (
-              <Grid item xs={6}>
+              <Grid item xs={6} key={propName}>
                 <TextField
                   label={propName}
                   fullWidth
@@ -91,7 +100,7 @@ const ValidationModal: React.FC = ({
             break;
           case 'boolean':
             element = (
-              <Grid item xs={12}>
+              <Grid item xs={12} key={propName}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -109,7 +118,7 @@ const ValidationModal: React.FC = ({
             break;
           case 'date':
             element = (
-              <Grid item xs={6}>
+              <Grid item xs={6} key={propName}>
                 <DateField
                   label={propName}
                   onChange={(value) => onChangeRuleSetting(propName, value)}
