@@ -43,7 +43,8 @@ export const FormBuilder = () => {
   };
 
   const disabled =
-    fields[currentKey] !== undefined || currentKey === ''
+    (fields[currentKey] !== undefined && currentType === '') ||
+    currentKey === ''
       ? 'disabled'
       : undefined;
 
