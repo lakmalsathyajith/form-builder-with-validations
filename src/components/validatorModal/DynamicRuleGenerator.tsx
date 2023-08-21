@@ -10,20 +10,29 @@ import {
   IconButton,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import { RegexRule } from '../../types/validationTypes';
 
-const DynamicRuleGenerator = ({ onRuleUpdate, frequentlyUsedRules }) => {
+type DynamicRuleGeneratorProps = {
+  onRuleUpdate: (rule: string, value: string | boolean | RegexRule[]) => void;
+  frequentlyUsedRules: RegexRule[];
+};
+
+const DynamicRuleGenerator = ({
+  onRuleUpdate,
+  frequentlyUsedRules,
+}: DynamicRuleGeneratorProps) => {
   const [frequentRules, setFrequentRules] = useState(frequentlyUsedRules);
-  const [dataList, setDataList] = useState([]);
+  const [dataList, setDataList] = useState<RegexRule[]>([]);
   const [regex, setRegex] = useState('');
   const [regexDescription, setRegexDescription] = useState('');
   const [editIndex, setEditIndex] = useState(-1);
 
   const filterFrequentRules = useCallback(() => {
-    let updatedFrequentRules = []; //
+    let updatedFrequentRules: RegexRule[] = []; //
     if (frequentlyUsedRules) {
       updatedFrequentRules = frequentlyUsedRules.filter((rule) => {
         let ruleNotFound = true;
-        dataList.some((addedRule) => {
+        dataList.some((addedRule: RegexRule) => {
           ruleNotFound =
             addedRule.regex !== rule.regex &&
             addedRule.regexDescription !== rule.regexDescription;
@@ -40,8 +49,8 @@ const DynamicRuleGenerator = ({ onRuleUpdate, frequentlyUsedRules }) => {
     setFrequentRules([...filterFrequentRules()]);
   }, [dataList, onRuleUpdate, filterFrequentRules]);
 
-  const addFrequentItemsToData = (item) => {
-    const dataListUpdated = [...dataList];
+  const addFrequentItemsToData = (item: RegexRule) => {
+    const dataListUpdated: RegexRule[] = [...dataList];
     dataListUpdated.push(item);
     setDataList(dataListUpdated);
   };
@@ -61,14 +70,14 @@ const DynamicRuleGenerator = ({ onRuleUpdate, frequentlyUsedRules }) => {
     }
   };
 
-  const handleEdit = (index) => {
+  const handleEdit = (index: number) => {
     const { regex, regexDescription } = dataList[index];
     setRegex(regex);
     setRegexDescription(regexDescription);
     setEditIndex(index);
   };
 
-  const handleDelete = (index) => {
+  const handleDelete = (index: number) => {
     const updatedList = dataList.filter((_, i) => i !== index);
     setDataList(updatedList);
   };

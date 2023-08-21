@@ -12,6 +12,7 @@ import { DateField } from './../fields/DateField.tsx';
 import DynamicRuleGenerator from './DynamicRuleGenerator.tsx';
 import { rules } from './../rules/rules.json';
 import { FieldType } from '../../store/form.ts';
+import { RegexRule } from '../../types/validationTypes.ts';
 
 type ValidationModalProps = {
   isOpen: string;
@@ -31,7 +32,10 @@ const ValidationModal: React.FC = ({
   const [ruleSet, setRuleSet] = useState({});
   const selectedRuleSet = rules[type];
 
-  const onChangeRuleSetting = (rule: string, value: string | boolean) => {
+  const onChangeRuleSetting = (
+    rule: string,
+    value: string | boolean | RegexRule[]
+  ) => {
     console.log(rule, value);
     const ruleSetUpdated = ruleSet;
 
