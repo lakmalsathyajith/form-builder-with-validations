@@ -13,8 +13,8 @@ import {
 import { DateField } from './../fields/DateField.tsx';
 import DynamicRuleGenerator from './DynamicRuleGenerator.tsx';
 import { rules } from './../rules/rules.json';
-import { FieldType } from '../../store/form.ts';
-import { RegexRule, Rule } from '../../types/validationTypes.ts';
+import { FieldType, FormElement } from '../../store/form.ts';
+import { RegexRule, Rule, ValidatorArgs } from '../../types/validationTypes.ts';
 
 type ValidationModalProps = {
   isOpen: boolean;
@@ -27,8 +27,16 @@ type RuleSet = {
   [key: string]: unknown;
 };
 
+type RuleElement = {
+  [key: string]: string;
+};
+
+// A dummy class to type assign the json
 class TypeAssign {}
 
+/**
+ *  Encapsulates validation UI elements
+ */
 const ValidationModal = ({
   isOpen,
   setIsValidationModalOpen,
@@ -41,8 +49,7 @@ const ValidationModal = ({
 
   const castedRules = Object.assign(new TypeAssign(), rules);
 
-  const selectedRuleSet = castedRules[type as keyof TypeAssign];
-
+  const selectedRuleSet: RuleElement[] = castedRules[type as keyof TypeAssign];
   const onChangeRuleSetting = (
     rule: string,
     value: string | boolean | RegexRule[]
@@ -84,9 +91,8 @@ const ValidationModal = ({
     p: 4,
   };
 
-  const generateElement = (rule: Rule) => {
+  const generateElement = (rule: RuleElement) => {
     let element;
-    console.log({ rule });
     for (const propName in rule) {
       if (Object.prototype.hasOwnProperty.call(rule, propName)) {
         switch (rule[propName]) {
@@ -162,7 +168,7 @@ const ValidationModal = ({
           <Typography id="modal-content" sx={{ mt: 2 }}>
             <Grid container spacing={2}>
               {selectedRuleSet &&
-                selectedRuleSet.map((rule: Rule) => {
+                selectedRuleSet.map((rule: RuleElement) => {
                   return generateElement(rule);
                 })}
               <Grid item xs={12}>

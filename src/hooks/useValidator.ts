@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { getValidated } from '../validators';
-import { FieldType } from '../store/form';
+import { FieldType, FormElement } from '../store/form';
 import { ErrorMessage, Rule, ErrorElement } from '../types/validationTypes';
-import { FormState, Field, FormKey } from '../store/form';
+import { Field, FormKey } from '../store/form';
 
 type useValidatorReturnType = {
   validate: (
@@ -21,7 +21,7 @@ type useValidatorReturnType = {
  *
  * @return  {useValidatorReturnType}  Return validator functions set of errors and props.
  */
-export const useValidator = (fields: FormState): useValidatorReturnType => {
+export const useValidator = (fields: FormElement): useValidatorReturnType => {
   const [validatorProps, setValidatorProps] = useState({});
 
   const validate = async (
@@ -37,7 +37,7 @@ export const useValidator = (fields: FormState): useValidatorReturnType => {
   };
 
   const validateAll = useCallback(
-    async (fields: FormState) => {
+    async (fields: FormElement) => {
       const validatorKeys = Object.keys(fields);
       const updatedProps: ErrorElement = {
         ...validatorProps,
