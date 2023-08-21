@@ -19,8 +19,12 @@ import { RegexRule } from '../../types/validationTypes.ts';
 type ValidationModalProps = {
   isOpen: boolean;
   setIsValidationModalOpen: (flag: boolean) => void;
-  type: FieldType | string | undefined;
+  type: FieldType | string;
   setFieldRuleSet: React.Dispatch<React.SetStateAction<object>>;
+};
+
+type RuleSet = {
+  [key: string]: unknown;
 };
 
 const ValidationModal = ({
@@ -31,8 +35,10 @@ const ValidationModal = ({
 }: ValidationModalProps) => {
   const [open, setOpen] = useState(false);
 
-  const [ruleSet, setRuleSet] = useState({});
-  const selectedRuleSet = rules[type];
+  const [ruleSet, setRuleSet] = useState<RuleSet>({});
+
+  const rulesParsed = JSON.parse(JSON.stringify(rules));
+  const selectedRuleSet = rulesParsed[type];
 
   const onChangeRuleSetting = (
     rule: string,
@@ -67,9 +73,9 @@ const ValidationModal = ({
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    bgcolor: 'background.paper',
+    backgroundColor: 'background.paper',
     border: '2px solid #000',
-    boxShadow: 24,
+    boxShadow: '24',
     maxHeight: '90%',
     overflowY: 'auto',
     p: 4,
@@ -128,6 +134,7 @@ const ValidationModal = ({
                 <DateField
                   label={propName}
                   onChange={(value) => onChangeRuleSetting(propName, value)}
+                  value={ruleSet[propName]}
                 />
               </Grid>
             );
@@ -149,7 +156,7 @@ const ValidationModal = ({
           <Typography id="modal-content" sx={{ mt: 2 }}>
             <Grid container spacing={2}>
               {selectedRuleSet &&
-                selectedRuleSet.map((rule) => {
+                selectedRuleSet.map((rule: string) => {
                   return generateElement(rule);
                 })}
               <Grid item xs={12}>

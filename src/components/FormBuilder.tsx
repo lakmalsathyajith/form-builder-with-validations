@@ -9,7 +9,7 @@ import ValidationModal from './validatorModal';
 import { Rule } from '../types/validationTypes.ts';
 
 export const FormBuilder = () => {
-  const [currentType, setCurrentType] = useState<FieldType | string>();
+  const [currentType, setCurrentType] = useState<FieldType | string>('');
   const [currentKey, setCurrentKey] = useState('');
   const [currentLabel, setCurrentLabel] = useState('');
   const [isValidationModalOpen, setIsValidationModalOpen] = useState(false);
