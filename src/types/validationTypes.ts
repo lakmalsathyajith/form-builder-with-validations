@@ -23,6 +23,11 @@ export interface NumberRule extends Rule {
   minValue: string;
 }
 
+export interface DateRule extends Rule {
+  maxDate: string;
+  minDate: string;
+}
+
 export type ValidatorArgs = {
   validationValue: string;
   rules: Rule;

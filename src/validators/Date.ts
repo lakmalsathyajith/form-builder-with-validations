@@ -1,5 +1,5 @@
 import { ErrorObject, Validatable, ValidatorBase } from '.';
-import { Rule } from '../types/validationTypes';
+import { DateRule } from '../types/validationTypes';
 
 class StringValidator extends ValidatorBase implements Validatable {
   /**
@@ -10,7 +10,7 @@ class StringValidator extends ValidatorBase implements Validatable {
    *
    * @return  {ErrorMessage}                   Appropriate error message
    */
-  validate = (_validationValue: string, rules: Rule): ErrorObject => {
+  validate = (_validationValue: string, rules: DateRule): ErrorObject => {
     const propsObject = {
       inputProps: {
         max: rules['maxDate'],
