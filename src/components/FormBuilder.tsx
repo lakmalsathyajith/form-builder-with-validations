@@ -65,6 +65,7 @@ export const FormBuilder = () => {
               Date: FieldType.Date,
               Boolean: FieldType.Boolean,
             }}
+            data-testid="type-selector"
           />
         </Grid>
         <Grid item xs={12}>
@@ -72,6 +73,7 @@ export const FormBuilder = () => {
             onChange={(value) => setCurrentKey(value)}
             label="Key"
             value={currentKey}
+            data-testid="key-input"
           />
         </Grid>
         <Grid item xs={12}>
@@ -79,6 +81,7 @@ export const FormBuilder = () => {
             onChange={(value) => setCurrentLabel(value)}
             label="Label"
             value={currentLabel}
+            data-testid="label-input"
           />
         </Grid>
         <Grid container spacing={2} justifyContent="space-between">
@@ -89,6 +92,7 @@ export const FormBuilder = () => {
               color="secondary"
               onClick={openValidationModal}
               disabled={!!disabled}
+              data-testid="add-validations"
             >
               Add Validations
             </Button>

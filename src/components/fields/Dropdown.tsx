@@ -45,6 +45,7 @@ export const Dropdown = ({
         value={value}
         label={label}
         onChange={handleChange}
+        data-testid={label}
       >
         {renderOptions()}
       </Select>
