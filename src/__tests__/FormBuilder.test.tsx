@@ -17,7 +17,7 @@ test('test, setting dropdown value', async () => {
   expect(secondListItem).toHaveTextContent('String');
 });
 
-test('test, filling the form builder form', async () => {
+test('renders validator modal component with 5 static rules.', async () => {
   const { container } = renderWithProviders(<App />);
   //renderWithProviders(<App />);
   const selectElement = container.getElementsByClassName('MuiSelect-outlined');
@@ -39,8 +39,6 @@ test('test, filling the form builder form', async () => {
   const validationButton = await screen.findAllByTestId('add-validations');
   await userEvent.click(validationButton[0]);
 
-  const ruleButtons = await screen.findAllByTestId('AddIcon');
-  await userEvent.click(ruleButtons[1]);
-
-  //expect(secondListItem).toHaveTextContent('String');
+  const buttonInValidatorModal = await screen.findAllByTestId('add-rule');
+  expect(buttonInValidatorModal.length).toBe(4);
 });

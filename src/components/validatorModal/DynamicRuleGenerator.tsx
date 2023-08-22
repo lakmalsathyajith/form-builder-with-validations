@@ -121,8 +121,9 @@ const DynamicRuleGenerator = ({
                       color="primary"
                       aria-label="add"
                       onClick={() => addFrequentItemsToData(data)}
+                      data-testid="add-rule"
                     >
-                      <AddIcon />
+                      <AddIcon data-testid="add-rule-icon" />
                     </IconButton>
                   </Paper>
                 </Grid>
