@@ -1,38 +1,71 @@
-# Frontend Developer Homework Assignment
 
-## Objective:
+# React Form validator
 
-You will be working with an existing form builder. The builder provides a possibility to choose one of several field types, set a key, a label, and add it into a form. Your task is divided into two main parts.
+This is a simple React Js application to enhance the form validation capabilities of the given form builder
 
-## Task Details:
 
-### 1. Field Input Validation:
+## React JS 
+React is a popular open-source JavaScript library for building user interfaces (UIs) and user interface components. It was developed and is maintained by Facebook and a community of individual developers and companies. React is widely used for building dynamic and responsive web applications, and it has gained significant adoption in the web development industry.
 
-In the existing application, we need to add validation to each input field according to its assigned type. For instance, if a field's type is ParamType.Number, the system should not allow the input of any non-numeric characters or symbols. Conversely, if the type is ParamType.String, any character input should be acceptable.
+### Key features
+Component-Based Architecture
 
-If a user attempts to input data that does not conform to the field's type, your solution should trigger an error function that displays an appropriate message. Validation should be triggered upon the blur event on each field.
+Virtual DOM
 
-### 2. Dynamic Validation Setting:
+Declarative Syntax
 
-In addition to basic field type validation, we need a feature that allows additional, user-defined validation rules to be set directly through the interface. This functionality should allow for rules such as:
+JSX (JavaScript XML)
 
-- The entered value must be greater than or equal to 5.
-- The input must begin with a capital letter.
-- The input must match a specific pattern (e.g., an email format).
-- The input must not contain any special characters.
-- The input must be a valid date.
+State Management
 
-The interface should allow for the definition of these and other validation rules, without requiring modifications to the codebase for each new rule. The specifics of how you enable this dynamic rule-setting are up to you, but we're looking for an innovative, flexible, and scalable solution.
+Unidirectional Data Flow
 
-## Submission:
+Reusable Components
 
-Submit your solution by pushing your code to a public GitHub repository. Ensure your code is clean, well-commented, and adheres to our current project structure. Also, include a README file that explains your thought process and the design of your solution.
+Virtual DOM Diffing
 
-## Evaluation Criteria:
+Lifecycle Methods (Class Components)
 
-- The code must be clean, efficient and well-commented.
-- The solution should successfully implement the features described above.
-- The design should be scalable and maintainable, allowing for the possibility of adding more validation types in the future.
-- The README file should provide clear insight into your thought process and the rationale behind your design decisions.
+Hooks
 
-Good luck!
+### Redux
+Redux is an open-source JavaScript library for managing the state of an application. It's commonly used in combination with React. Redux provides a predictable state container that helps manage complex application states and makes state changes more maintainable and traceable, especially in larger applications.
+
+
+## Acknowledgements
+
+I have used a custom react hook to encapsulate the validation logic, which shared a state which includes all the validation satatus (including errors) of the given fields.
+
+By passing field data to the hook it will output relevent validation data which can be used in the time of form submission
+
+
+### Versions
+`React Js(v18.2.0), reduxjs/toolkit(v1.9.5), Material UI(v5.13.1)`
+## Demo
+
+Please check `demo.gif` in `/public` folder
+
+
+## Deployment
+
+To view in dev mode
+
+```bash
+  npm install | yarn install
+```
+
+To deploy and run locally
+
+```bash
+  npm dev | yarn dev
+```
+Follow the URL informs
+
+### Tests
+```bash
+  npm test | yarn test
+```
+## Authors
+
+- [@sathyajith](https://github.com/lakmalsathyajith)
+
