@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 import { renderWithProviders } from '../store/testUtils';
 
-test('test, setting dropdown value', async () => {
+test('renders type dropdown, with value string', async () => {
   const { container } = renderWithProviders(<App />);
   renderWithProviders(<App />);
   const selectElement = container.getElementsByClassName('MuiSelect-outlined');
