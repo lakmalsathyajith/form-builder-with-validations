@@ -55,12 +55,14 @@ const DynamicRuleGenerator = ({
     setFrequentRules([...filterFrequentRules()]);
   }, [dataList, onRuleUpdate, filterFrequentRules]);
 
+  // Add frequently used patterns from json file
   const addFrequentItemsToData = (item: RegexRule) => {
     const dataListUpdated: RegexRule[] = [...dataList];
     dataListUpdated.push(item);
     setDataList(dataListUpdated);
   };
 
+  // Triggers on add rule to rules list
   const handleAdd = () => {
     if (regex && regexDescription) {
       if (editIndex !== -1) {
@@ -76,6 +78,7 @@ const DynamicRuleGenerator = ({
     }
   };
 
+  // Triggers on edit rule
   const handleEdit = (index: number) => {
     const { regex, regexDescription } = dataList[index];
     setRegex(regex);
@@ -83,6 +86,7 @@ const DynamicRuleGenerator = ({
     setEditIndex(index);
   };
 
+  // Triggers on delete rule
   const handleDelete = (index: number) => {
     const updatedList = dataList.filter((_, i) => i !== index);
     setDataList(updatedList);
